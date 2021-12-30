@@ -1,0 +1,23 @@
+sudo: required
+language: generic
+services:
+  - docker
+
+before_install:
+  - docker build -t avivdimri/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true avivdimri/react-test npm test
+
+after_success:
+  - docker build -t avivdimri/multi-client ./client
+  - docker build -t avivdimri/multi-nginx ./nginx
+  - docker build -t avivdimri/multi-server ./server
+  - docker build -t avivdimri/multi-worker ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  -docker push avivdimri/multi-client
+  -docker push avivdimri/multi-nginx
+  -docker push avivdimri/multi-server
+  -docker push avivdimri/multi-worker
