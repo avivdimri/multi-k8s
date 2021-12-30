@@ -17,7 +17,7 @@ after_success:
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  -docker push avivdimri/multi-client
-  -docker push avivdimri/multi-nginx
-  -docker push avivdimri/multi-server
-  -docker push avivdimri/multi-worker
+  - docker push avivdimri/multi-client
+  - docker push avivdimri/multi-nginx
+  - docker push avivdimri/multi-server
+  - docker push avivdimri/multi-worker
