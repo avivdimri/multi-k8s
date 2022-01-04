@@ -1,0 +1,38 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+           "name": "client",
+           "image": "avivdimri/multi-client",
+           "hostname": "client",
+           "essential": false
+        },
+        {
+            "name": "server",
+            "image": "avivdimri/multi-server",
+            "hostname": "api",
+            "essential": false
+         },
+         {
+            "name": "worker",
+            "image": "avivdimri/multi-workerr",
+            "hostname": "worker",
+            "essential": false
+         },
+         {
+            "name": "nginx",
+            "image": "avivdimri/multi-nginx",
+            "hostname": "nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["client", "server"]
+         }
+
+
+    ]
+}

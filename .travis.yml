@@ -21,3 +21,15 @@ after_success:
   - docker push avivdimri/multi-nginx
   - docker push avivdimri/multi-server
   - docker push avivdimri/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: 'us-east-2'
+  app: 'multi-docer'
+  env: 'MultiDocker-env'
+  bucket_name: 'elasticbeanstalk-us-east-2-882278191845'
+  bucker_path: 'docker-multi'
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_Access_key: $AWS_SECRET_KEY
